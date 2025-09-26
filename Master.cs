@@ -21,6 +21,7 @@ internal class Master {
 
 		Log.Me(() => "Entering main game loop...", EnableLogging);
 		while (!Raylib.WindowShouldClose()) {
+			Log.Me(() => "Updating game state...", EnableUpdateLogging);
 			Raylib.BeginDrawing();
 			Raylib.ClearBackground(Color.RayWhite);
 			Raylib.DrawTexture(background, 0, 0, Color.White);
@@ -30,6 +31,7 @@ internal class Master {
 
 			Raylib.DrawText($"Money: {StoreManager.Money}", 10, 10, 20, Color.Yellow);
 			Raylib.EndDrawing();
+			Log.Me(() => "Frame complete.\n", EnableUpdateLogging);
 		}
 
 		Log.Me(() => "Exiting game...", EnableLogging);
