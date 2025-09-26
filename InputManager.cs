@@ -20,22 +20,22 @@ internal class InputManager {
 	public static void Update(bool v = false, int s = 0) {
 		if (Raylib.IsMouseButtonPressed(InteractKey)) OnClick?.Invoke(MousePosition);
 
-		if (Raylib.IsKeyPressed(BuyChumA)) WorldManager.SpawnChum<SmallChum>(MousePosition, v, s + 1);
+		if (Raylib.IsKeyPressed(BuyChumA)) StoreManager.PurchaseChum<SmallChum>(MousePosition, v, s + 1);
 
-		if (Raylib.IsKeyPressed(BuyChumB)) WorldManager.SpawnChum<LargeChum>(MousePosition, v, s + 1);
+		if (Raylib.IsKeyPressed(BuyChumB)) StoreManager.PurchaseChum<SmallChum>(MousePosition, v, s + 1);
 
-		if (Raylib.IsKeyPressed(BuyFishA)) StoreManager.Purchase<Cod>(v, s + 1);
+		if (Raylib.IsKeyPressed(BuyFishA)) StoreManager.PurchaseFish<Cod>(v, s + 1);
 
 		//if (Raylib.IsKeyPressed(BuyFishB)) {
-		//	StoreManager.Purchase<Snapper>(v, s + 1);
+		//	StoreManager.PurchaseFish<Snapper>(v, s + 1);
 		//}
 
 		//if (Raylib.IsKeyPressed(BuyFishC)) {
-		//	StoreManager.Purchase<JanitorFish>(v, s + 1);
+		//	StoreManager.PurchaseFish<JanitorFish>(v, s + 1);
 		//}
 
 		//if (Raylib.IsKeyPressed(BuyFishD)) {
-		//	StoreManager.Purchase<CarnivoreFish>(v, s + 1);
+		//	StoreManager.PurchaseFish<CarnivoreFish>(v, s + 1);
 		//}
 	}
 }
