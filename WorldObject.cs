@@ -71,6 +71,16 @@ public abstract class WorldObject {
 		Hitbox.X = (int) Position.X - Hitbox.Width / 2;
 		Hitbox.Y = (int) Position.Y - Hitbox.Height / 2;
 
+		//Announce existence periodically
+		TimeSinceLastAnnouncement += Raylib.GetFrameTime();
+		if (TimeSinceLastAnnouncement >= TimeBetweenAnnouncements) {
+			Log.Me(() => "Broadcasting OnAnnounceExistence event...", v, s + 1);
+			OnAnnounceExistence?.Invoke(this, v, s + 1);
+			TimeSinceLastAnnouncement = 0f;
+		}
+
+		Log.Me(() => "Done!", v, s + 1);
+	}
 		Log.Me(() => "Done!", v, s + 1);
 	}
 }
