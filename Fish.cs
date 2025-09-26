@@ -258,6 +258,9 @@ public class Fish : WorldObject {
 	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
 	/// <param name="s">The stack layer this method belongs in.</param>
 	protected void DoSomething(bool v = false, int s = 0) {
+		// Ensure that dead fish stay dead.
+		if (!IsAlive) CurrentState = State.Dead;
+
 		switch (CurrentState) {
 			case State.Idle:
 				Log.Me(() => "Idling...", v, s + 1);
