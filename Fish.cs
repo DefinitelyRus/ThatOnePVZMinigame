@@ -63,6 +63,7 @@ public class Fish : WorldObject {
 		DoSomething(v, s + 1); 
 		DepleteHealth(v, s + 1);
 		GenerateIncome(v, s + 1);
+		Poop(v, s + 1);
 	}
 
 	#endregion
@@ -195,6 +196,29 @@ public class Fish : WorldObject {
 					WorldManager.SpawnCoin<SilverCoin>(Position, v, s + 1);
 					break;
 			}
+
+			Log.Me(() => "Done!", v, s + 1);
+		}
+	}
+
+	#endregion
+
+	#region Pooping
+
+	protected static readonly float PoopInterval = 10f;
+
+	protected float TimeUntilPoop = 0f;
+
+	protected void Poop(bool v = false, int s = 0) {
+		if (!IsAlive) return;
+		if (TimeUntilPoop <= 0f) return;
+
+		TimeUntilPoop -= Raylib.GetFrameTime();
+
+		if (TimeUntilPoop <= 0) {
+			Log.Me(() => "Pooping...", v, s + 1);
+			TimeUntilPoop = 0f;
+			WorldManager.SpawnPoop(Position, v, s + 1);
 
 			Log.Me(() => "Done!", v, s + 1);
 		}
@@ -376,13 +400,32 @@ public class Fish : WorldObject {
 				if (Target.GetType().IsSubclassOf(typeof(Chum))) {
 					Log.Me(() => "Eating target chum...", v, s + 1);
 					Chum chum = (Chum) Target;
+
 					Health += Math.Clamp(chum.HealAmount, 0, MaxHealth - Health);
+					Log.Me(() => $"Health after eating: {Health}/{MaxHealth}", v, s + 1);
+
+					TimeUntilPoop = (TimeUntilPoop == 0) ? PoopInterval : TimeUntilPoop;
 					chum.Despawn(v, s + 1);
 				}
 
-				if (Target is Fish fish) {
+				// If the target is a fish (or its subtype), eat it and gain health.
+				else if (Target.GetType().IsSubclassOf(typeof(Fish))) {
+					Log.Me(() => "Eating target fish...", v, s + 1);
+					Fish fish = (Fish) Target;
+					
 					Health += Math.Clamp(fish.Health, 0, MaxHealth - Health);
+					Log.Me(() => $"Health after eating: {Health}/{MaxHealth}", v, s + 1);
+
+					TimeUntilPoop = (TimeUntilPoop == 0) ? PoopInterval : TimeUntilPoop;
 					fish.Despawn(v, s + 1);
+				}
+
+				// If the target is poop, eat it and gain health.
+				else if (Target.GetType() == typeof(Poop)) {
+					Log.Me(() => "Eating target poop... Yuck!", v, s + 1);
+					Poop poop = (Poop) Target;
+					Health += Math.Clamp(poop.HealAmount, 0, MaxHealth - Health);
+					Target.Despawn(v, s + 1);
 				}
 
 				Target = null;
@@ -526,22 +569,95 @@ public class Fish : WorldObject {
 
 #region Implementations
 
+/// <summary>
+/// A basic fish with 30 seconds of lifespan, low health, and slow coin drop rate.
+/// </summary>
 public class Cod : Fish {
 	public Cod(bool v = false, int s = 0) :
 		base(
 			textureName: "fish_cod",
-			maxHealth: 150f,
-			attrition: 5f,
+			maxHealth: 90f,
+			attrition: 3f,
 			cost: 50,
-			coinInterval: 5f,
+			coinInterval: 8f,
 			coinTypes: [typeof(SilverCoin)],
-			speed: 60f,
+			speed: 45f,
 			preference: typeof(Chum),
 			v: v,
 			s: s + 1
 			)
 		{
 		Log.Me(() => $"Created Cod.", v, s + 1);
+	}
+}
+
+
+/// <summary>
+/// A faster medium fish with 2 minutes of lifespan, high health, and slower coin drop rate but with 25% chance of spawning a gold coin.
+/// </summary>
+public class Bass : Fish {
+	public Bass(bool v = false, int s = 0) :
+		base(
+			textureName: "fish_bass",
+			maxHealth: 480f,
+			attrition: 4f,
+			cost: 250,
+			coinInterval: 12f,
+			coinTypes: [typeof(SilverCoin), typeof(SilverCoin), typeof(SilverCoin), typeof(GoldCoin)],
+			speed: 60f,
+			preference: typeof(Chum),
+			v: v,
+			s: s + 1
+			)
+		{
+		Log.Me(() => $"Created Bass.", v, s + 1);
+	}
+}
+
+
+/// <summary>
+/// A slow fish with 2 minutes of lifespan, low health, and very slow coin drop rate,
+/// but drops only gold coins and prefers to eat poop over chum.
+/// </summary>
+public class JanitorFish : Fish {
+	public JanitorFish(bool v = false, int s = 0) :
+		base(
+			textureName: "fish_tai",
+			maxHealth: 120f,
+			attrition: 1f,
+			cost: 800,
+			coinInterval: 15f,
+			coinTypes: [typeof(GoldCoin)],
+			speed: 50f,
+			preference: typeof(Poop),
+			v: v,
+			s: s + 1
+			) {
+		Log.Me(() => $"Created Janitor Fish.", v, s + 1);
+	}
+}
+
+
+/// <summary>
+/// A fast carnivorous fish with 4 minutes of lifespan, very high health, and high coin drop rate.
+/// It only drops gold coins and prefers to eat other fish over chum.
+/// </summary>
+public class CarnivoreFish : Fish {
+	public CarnivoreFish(bool v = false, int s = 0) :
+		base(
+			textureName: "fish_yellowfin",
+			maxHealth: 1200f,
+			attrition: 20f,
+			cost: 2500,
+			coinInterval: 5f,
+			coinTypes: [typeof(GoldCoin)],
+			speed: 80f,
+			preference: typeof(Fish),
+			v: v,
+			s: s + 1
+			)
+		{
+		Log.Me(() => $"Created Predator Fish.", v, s + 1);
 	}
 }
 
