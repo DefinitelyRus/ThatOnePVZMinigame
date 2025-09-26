@@ -6,6 +6,8 @@ internal static class ResourceManager {
 	public static Dictionary<string, Texture2D> Textures = [];
 	public static Dictionary<string, Sound> Sounds = [];
 
+	public static Music MusicStream = new();
+
 	public static void PreloadAssets(bool v = false, int s = 0) {
 		Log.Me(() => "Preloading assets...", v, s + 1);
 
@@ -46,5 +48,28 @@ internal static class ResourceManager {
 
 		Log.Err(() => $"Sound '{name}' not found in ResourceManager.", true, s + 1);
 		return new();
+	}
+
+	public static void PlaySound(string name, bool v = false, int s = 0) {
+		Log.Me(() => $"Playing sound \"{name}\"...", v, s + 1);
+		Sound sound = GetSound(name, v, s + 1);
+		Raylib.PlaySound(sound);
+
+		Log.Me(() => "Done!", v, s + 1);
+	}
+
+
+	public static void PlayMusic(bool v = false, int s = 0) {
+		Raylib.UpdateMusicStream(MusicStream);
+		if (Raylib.IsMusicStreamPlaying(MusicStream)) return;
+
+		Log.Me(() => "Finding background music to play...", v, s + 1);
+		int musicIndex = Raylib.GetRandomValue(0, 4);
+		string filePath = $"Assets\\Audio\\music{musicIndex}.wav";
+		string fileName = Path.GetFileNameWithoutExtension(filePath);
+		MusicStream = Raylib.LoadMusicStream(filePath);
+
+		Raylib.PlayMusicStream(MusicStream);
+		Log.Me(() => $"Now playing: {fileName}.", v, s + 1);
 	}
 }

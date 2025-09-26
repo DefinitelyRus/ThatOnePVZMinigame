@@ -11,6 +11,8 @@ internal class Master {
 		Log.Me(() => "Starting game...", EnableLogging);
 		Raylib.SetTraceLogLevel(TraceLogLevel.Warning);
 		Raylib.InitWindow(1280, 720, "That one PVZ minigame");
+		Raylib.InitAudioDevice();
+		Raylib.SetMasterVolume(0.6f);
 		Raylib.SetTargetFPS(60);
 
 		Log.Me(() => "Doing initial setup...", EnableLogging);
@@ -28,6 +30,7 @@ internal class Master {
 
 			InputManager.Update(EnableUpdateLogging);
 			WorldManager.Update(EnableUpdateLogging);
+			ResourceManager.PlayMusic(EnableUpdateLogging);
 
 			Raylib.DrawText($"Money: {StoreManager.Money}", 10, 10, 20, Color.Yellow);
 			Raylib.EndDrawing();
