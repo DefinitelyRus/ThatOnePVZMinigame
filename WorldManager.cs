@@ -12,12 +12,7 @@ public static class WorldManager {
 	/// <typeparam name="T">The specific subtype of <see cref="Fish"/> to spawn.</typeparam>
 	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
 	/// <param name="s">The stack layer this method belongs in.</param>
-	public static void SpawnFish<T>(bool v = false, int s = 0) {
-		if (!typeof(T).IsSubclassOf(typeof(Fish))) {
-			Log.Err(() => $"Cannot spawn fish of type {typeof(T).Name} because it does not inherit from Fish.", v, s + 1);
-			return;
-		}
-
+	public static void SpawnFish<T>(bool v = false, int s = 0) where T : Fish {
 		Log.Me(() => $"Spawning fish of type {typeof(T).Name}...", v, s + 1);
 		Fish fish = (Fish) Activator.CreateInstance(typeof(T), v, s + 1)!;
 		WorldObjects.Add(fish);
@@ -34,12 +29,7 @@ public static class WorldManager {
 	/// <param name="startPos">The 2D vector position of where to spawn the chum.</param>
 	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
 	/// <param name="s">The stack layer this method belongs in.</param>
-	public static void SpawnChum<T>(Vector2 startPos, bool v = false, int s = 0) {
-		if (!typeof(T).IsSubclassOf(typeof(Chum))) {
-			Log.Err(() => $"Cannot spawn chum of type {typeof(T).Name} because it does not inherit from Chum.", v, s + 1);
-			return;
-		}
-
+	public static void SpawnChum<T>(Vector2 startPos, bool v = false, int s = 0) where T : Chum {
 		Log.Me(() => $"Spawning chum of type {typeof(T).Name}...", v, s + 1);
 		Chum chum = (Chum) Activator.CreateInstance(typeof(T), startPos, v, s + 1)!;
 		WorldObjects.Add(chum);
