@@ -26,16 +26,10 @@ internal class InputManager {
 
 		if (Raylib.IsKeyPressed(BuyFishA)) StoreManager.PurchaseFish<Cod>(v, s + 1);
 
-		//if (Raylib.IsKeyPressed(BuyFishB)) {
-		//	StoreManager.PurchaseFish<Snapper>(v, s + 1);
-		//}
+		if (Raylib.IsKeyPressed(BuyFishB)) StoreManager.PurchaseFish<Bass>(v, s + 1);
 
-		//if (Raylib.IsKeyPressed(BuyFishC)) {
-		//	StoreManager.PurchaseFish<JanitorFish>(v, s + 1);
-		//}
+		if (Raylib.IsKeyPressed(BuyFishC)) StoreManager.PurchaseFish<JanitorFish>(v, s + 1);
 
-		//if (Raylib.IsKeyPressed(BuyFishD)) {
-		//	StoreManager.PurchaseFish<CarnivoreFish>(v, s + 1);
-		//}
+		if (Raylib.IsKeyPressed(BuyFishD)) StoreManager.PurchaseFish<CarnivoreFish>(v, s + 1);
 	}
 }
