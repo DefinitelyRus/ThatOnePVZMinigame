@@ -55,6 +55,9 @@ public abstract class WorldObject {
 		int cornerY = centerY - height / 2;
 		Hitbox = new(cornerX, cornerY, width, height);
 
+		Log.Me(() => "Broadcasting OnAnnounceExistence event...", v, s + 1);
+		OnAnnounceExistence?.Invoke(this, v, s + 1);
+
 		Log.Me(() => "Done!", v, s + 1);
 	}
 
