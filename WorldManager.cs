@@ -47,6 +47,15 @@ public static class WorldManager {
 	}
 
 
+	public static void SpawnPoop(Vector2 startPos, bool v = false, int s = 0) {
+		Log.Me(() => "Spawning poop...", v, s + 1);
+		Poop poop = new(startPos, v, s + 1);
+		ToAdd.Add(poop);
+
+		Log.Me(() => "Done!", v, s + 1);
+	}
+
+
 	/// <summary>
 	/// Updates all world objects, removes any that are marked for deletion,
 	/// </summary>
