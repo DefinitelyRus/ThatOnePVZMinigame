@@ -5,8 +5,7 @@ namespace ThatOnePVZMinigame;
 public abstract class WorldObject {
 	protected Texture2D Sprite;
 	protected Rectangle Hitbox;
-
-	protected Vector2 Position = Vector2.Zero;
+	public Vector2 Position = Vector2.Zero;
 
 	/// <summary>
 	/// A flag indicating whether the object should be deleted on the next update.
