@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ThatOnePVZMinigame": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
