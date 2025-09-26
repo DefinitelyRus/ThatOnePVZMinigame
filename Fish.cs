@@ -415,12 +415,6 @@ public class Fish : WorldObject {
 
 		Log.Me(() => $"Fish notified of new object of type {obj.GetType().Name}...", v, s + 1);
 
-		// Ignore if already have a target.
-		if (Target != null) {
-			Log.Me(() => "Already have a target, ignoring new object.", v, s + 1);
-			return;
-		}
-
 		// Ignore if not the preferred target type.
 		if (!obj.GetType().IsSubclassOf(PreferredTarget) && obj.GetType() != PreferredTarget) {
 			Log.Me(() => "Not interested in this type of object.", v, s + 1);
@@ -436,6 +430,17 @@ public class Fish : WorldObject {
 		else if (obj is Chum chum && MaxHealth - Health < chum.HealAmount / 2) {
 			Log.Me(() => "Not hungry enough to chase this chum.", v, s + 1);
 			return;
+		}
+
+		// If the object is less than half the distance to the fish than the current target, switch targets.
+		if (Target != null) {
+			float currentTargetDistance = Vector2.Distance(Position, Target.Position);
+			float newTargetDistance = Vector2.Distance(Position, obj.Position);
+
+			if (newTargetDistance > currentTargetDistance / 2) {
+				Log.Me(() => "Current target is closer than the new object. Ignoring new object.", v, s + 1);
+				return;
+			}
 		}
 
 		// Chase the object.
