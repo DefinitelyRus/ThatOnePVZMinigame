@@ -40,14 +40,24 @@ public abstract class Coin : SinkingObject {
 	/// <param name="mousePos">
 	/// A 2D vector value of the cursor's position when the mouse was clicked.
 	/// </param>
-	private void ReceiveClick(Vector2 mousePos) {
+	private void ReceiveClick(Vector2 mousePos, bool v = false, int s = 0) {
 		Rectangle rect = new(Position.X, Position.Y, Sprite.Width, Sprite.Height);
 		bool clickedOn = Raylib.CheckCollisionPointRec(mousePos, rect);
 
 		if (clickedOn) {
+			// Mark for redemption and deletion
+			Log.Me(() => $"Coin at ({Position.X}, {Position.Y}) clicked! Marking for redemption and deletion...", false, 0);
 			ToRedeem = true;
 			ToDelete = true;
 			InputManager.OnClick -= ReceiveClick;
+
+			// Play random coin sound
+			Log.Me(() => "Playing coin sound...", v, s + 1);
+			int soundIndex = Raylib.GetRandomValue(1, 2);
+			string soundName = $"coin_{soundIndex}";
+			ResourceManager.PlaySound(soundName, v, s + 1);
+
+			Log.Me(() => "Done!", v, s + 1);
 		}
 	}
 }
