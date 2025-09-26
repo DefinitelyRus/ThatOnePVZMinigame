@@ -81,6 +81,15 @@ public abstract class WorldObject {
 
 		Log.Me(() => "Done!", v, s + 1);
 	}
+
+
+	public void Despawn(bool v = false, int s = 0) {
+		Log.Me(() => "Despawning world object...", v, s + 1);
+		ToDelete = true;
+
+		Log.Me(() => "Broadcasting OnDelete event...", v, s + 1);
+		OnDelete?.Invoke(this, v, s + 1);
+
 		Log.Me(() => "Done!", v, s + 1);
 	}
 }
