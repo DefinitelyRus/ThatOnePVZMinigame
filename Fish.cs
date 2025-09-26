@@ -410,8 +410,10 @@ public class Fish : WorldObject {
 	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
 	/// <param name="s">The stack layer this method belongs in.</param>
 	protected virtual void NotifySpawn(WorldObject obj, bool v = false, int s = 0) {
-		Log.Me(() => $"Fish notified of new object of type {obj.GetType().Name}...", v, s + 1);
 		if (obj == this) return; // Don't notify self.
+		if (!IsAlive) return; // Don't notify if dead.
+
+		Log.Me(() => $"Fish notified of new object of type {obj.GetType().Name}...", v, s + 1);
 
 		// Ignore if already have a target.
 		if (Target != null) {
