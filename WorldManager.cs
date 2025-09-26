@@ -3,6 +3,7 @@
 namespace ThatOnePVZMinigame;
 public static class WorldManager {
 	private static readonly List<WorldObject> WorldObjects = [];
+	private static readonly List<WorldObject> ToAdd = [];
 	private static readonly List<WorldObject> ToRemove = [];
 
 
@@ -15,11 +16,10 @@ public static class WorldManager {
 	public static void SpawnFish<T>(bool v = false, int s = 0) where T : Fish {
 		Log.Me(() => $"Spawning fish of type {typeof(T).Name}...", v, s + 1);
 		Fish fish = (Fish) Activator.CreateInstance(typeof(T), v, s + 1)!;
-		WorldObjects.Add(fish);
+		ToAdd.Add(fish);
 
 		Log.Me(() => "Done!", v, s + 1);
 	}
-
 
 
 	/// <summary>
@@ -32,7 +32,16 @@ public static class WorldManager {
 	public static void SpawnChum<T>(Vector2 startPos, bool v = false, int s = 0) where T : Chum {
 		Log.Me(() => $"Spawning chum of type {typeof(T).Name}...", v, s + 1);
 		Chum chum = (Chum) Activator.CreateInstance(typeof(T), startPos, v, s + 1)!;
-		WorldObjects.Add(chum);
+		ToAdd.Add(chum);
+
+		Log.Me(() => "Done!", v, s + 1);
+	}
+
+
+	public static void SpawnCoin<T>(Vector2 startPos, bool v = false, int s = 0) where T : Coin {
+		Log.Me(() => $"Spawning coin of type {typeof(T).Name}...", v, s + 1);
+		Coin coin = (Coin) Activator.CreateInstance(typeof(T), startPos, v, s + 1)!;
+		ToAdd.Add(coin);
 
 		Log.Me(() => "Done!", v, s + 1);
 	}
@@ -46,9 +55,16 @@ public static class WorldManager {
 	public static void Update(bool v = false, int s = 0) {
 		Log.Me(() => $"Updating {WorldObjects.Count} world objects...", v, s + 1);
 		foreach (WorldObject obj in WorldObjects) {
+			Log.Me(() => $"Updating object of type {obj.GetType().Name}...", v, s + 1);
 			obj.Update(v, s + 1);
 			if (obj.ToDelete) ToRemove.Add(obj);
 		}
+
+		if (ToAdd.Count > 0) Log.Me(() => $"Adding {ToAdd.Count} new objects...", v, s + 1);
+		foreach (WorldObject obj in ToAdd) {
+			WorldObjects.Add(obj);
+		}
+		ToAdd.Clear();
 
 		if (ToRemove.Count > 0) Log.Me(() => $"Removing {ToRemove.Count} objects...", v, s + 1);
 		foreach (WorldObject obj in ToRemove) {
