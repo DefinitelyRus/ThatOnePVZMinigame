@@ -6,21 +6,6 @@ public static class WorldManager {
 	private static readonly List<WorldObject> ToRemove = [];
 
 
-
-	/// <summary>
-	/// Adds a pre-existing world object to the world.
-	/// </summary>
-	/// <param name="obj"></param>
-	/// <param name="v"></param>
-	/// <param name="s"></param>
-	//public static void AddObject(WorldObject obj, bool v = false, int s = 0) {
-	//	Log.Me(() => "Adding world object to world...", v, s + 1);
-	//	WorldObjects.Add(obj);
-
-	//	Log.Me(() => "Done!", v, s + 1);
-	//}
-
-
 	/// <summary>
 	/// Spawns a fish of type T and adds it to the world.
 	/// </summary>
