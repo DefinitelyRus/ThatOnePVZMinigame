@@ -22,7 +22,7 @@ internal class InputManager {
 
 		if (Raylib.IsKeyPressed(BuyChumA)) StoreManager.PurchaseChum<SmallChum>(MousePosition, v, s + 1);
 
-		if (Raylib.IsKeyPressed(BuyChumB)) StoreManager.PurchaseChum<SmallChum>(MousePosition, v, s + 1);
+		if (Raylib.IsKeyPressed(BuyChumB)) StoreManager.PurchaseChum<LargeChum>(MousePosition, v, s + 1);
 
 		if (Raylib.IsKeyPressed(BuyFishA)) StoreManager.PurchaseFish<Cod>(v, s + 1);
 
