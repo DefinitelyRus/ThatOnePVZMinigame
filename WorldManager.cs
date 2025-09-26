@@ -53,10 +53,12 @@ public static class WorldManager {
 	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
 	/// <param name="s">The stack layer this method belongs in.</param>
 	public static void Update(bool v = false, int s = 0) {
+		// Update existing objects
 		Log.Me(() => $"Updating {WorldObjects.Count} world objects...", v, s + 1);
 		foreach (WorldObject obj in WorldObjects) {
 			Log.Me(() => $"Updating object of type {obj.GetType().Name}...", v, s + 1);
 			obj.Update(v, s + 1);
+
 			if (obj.ToDelete) ToRemove.Add(obj);
 			if (obj is Coin coin && coin.ToRedeem) {
 				Log.Me(() => $"Redeeming coin worth {coin.Value}...", v, s + 1);
@@ -66,12 +68,14 @@ public static class WorldManager {
 			}
 		}
 
+		// Add new objects
 		if (ToAdd.Count > 0) Log.Me(() => $"Adding {ToAdd.Count} new objects...", v, s + 1);
 		foreach (WorldObject obj in ToAdd) {
 			WorldObjects.Add(obj);
 		}
 		ToAdd.Clear();
 
+		// Remove deleted objects
 		if (ToRemove.Count > 0) Log.Me(() => $"Removing {ToRemove.Count} objects...", v, s + 1);
 		foreach (WorldObject obj in ToRemove) {
 			WorldObjects.Remove(obj);
