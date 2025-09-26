@@ -6,7 +6,7 @@ internal class InputManager {
 
 	public static Vector2 MousePosition => Raylib.GetMousePosition();
 	public static MouseButton InteractKey = MouseButton.Left;
-	public static event Action<Vector2>? OnClick;
+	public static event Action<Vector2, bool, int>? OnClick;
 
 	public static KeyboardKey BuyChumA = KeyboardKey.Q;
 	public static KeyboardKey BuyChumB = KeyboardKey.W;
@@ -18,7 +18,7 @@ internal class InputManager {
 
 
 	public static void Update(bool v = false, int s = 0) {
-		if (Raylib.IsMouseButtonPressed(InteractKey)) OnClick?.Invoke(MousePosition);
+		if (Raylib.IsMouseButtonPressed(InteractKey)) OnClick?.Invoke(MousePosition, v, s + 1);
 
 		if (Raylib.IsKeyPressed(BuyChumA)) StoreManager.PurchaseChum<SmallChum>(MousePosition, v, s + 1);
 
