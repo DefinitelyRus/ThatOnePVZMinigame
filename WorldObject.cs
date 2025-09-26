@@ -12,6 +12,27 @@ public abstract class WorldObject {
 	/// </summary>
 	public bool ToDelete = false;
 
+	/// <summary>
+	/// Triggers when a world object is created.
+	/// </summary>
+	public static event Action<WorldObject, bool, int>? OnAnnounceExistence;
+
+	/// <summary>
+	/// Triggers when a world object is deleted.
+	/// </summary>
+	public static event Action<WorldObject, bool, int>? OnDelete;
+
+	/// <summary>
+	/// How often (in seconds) the world object should announce its existence.
+	/// </summary>
+	protected float TimeBetweenAnnouncements = 0.5f;
+
+	/// <summary>
+	/// How much time (in seconds) has passed since the last announcement.
+	/// </summary>
+	private float TimeSinceLastAnnouncement = 0f;
+
+
 	public WorldObject(
 		Vector2 startPos,
 		string textureName,
