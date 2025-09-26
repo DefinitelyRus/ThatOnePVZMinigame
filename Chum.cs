@@ -12,7 +12,7 @@ public abstract class Chum : SinkingObject
 	/// <summary>
 	/// How much the chum costs to buy and spawn.
 	/// </summary>
-	public int Cost = 0;
+	public static int Cost { get; protected set; } = 0;
 	
 	public Chum(
 		Vector2 startPos,
