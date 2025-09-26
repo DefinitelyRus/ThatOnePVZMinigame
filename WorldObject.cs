@@ -61,6 +61,12 @@ public abstract class WorldObject {
 		Log.Me(() => "Done!", v, s + 1);
 	}
 
+
+	/// <summary>
+	/// Updates the world object each frame: draws it and updates its hitbox.
+	/// </summary>
+	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
+	/// <param name="s">The stack layer this method belongs in.</param>
 	public virtual void Update(bool v = false, int s = 0) {
 		Log.Me(() => "Drawing world object...", v, s + 1);
 
@@ -83,6 +89,11 @@ public abstract class WorldObject {
 	}
 
 
+	/// <summary>
+	/// Marks the world object for deletion and broadcasts the OnDelete event.
+	/// </summary>
+	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
+	/// <param name="s">The stack layer this method belongs in.</param>
 	public void Despawn(bool v = false, int s = 0) {
 		Log.Me(() => "Despawning world object...", v, s + 1);
 		ToDelete = true;
