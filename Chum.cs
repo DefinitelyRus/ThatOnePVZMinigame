@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 namespace ThatOnePVZMinigame;
 
 public abstract class Chum : SinkingObject
@@ -14,6 +13,8 @@ public abstract class Chum : SinkingObject
 	/// </summary>
 	public static int Cost { get; protected set; } = 0;
 	
+
+
 	public Chum(
 		Vector2 startPos,
 		string spriteName,
@@ -30,9 +31,10 @@ public abstract class Chum : SinkingObject
 			s: s + 1
 			) {
 		Log.Me(() => $"Creating base chum...", v, s + 1);
-
 		HealAmount = healAmount;
 		Cost = cost;
+
+		Log.Me(() => "Done!", v, s + 1);
 	}
 }
 
