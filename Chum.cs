@@ -48,7 +48,7 @@ public class SmallChum : Chum
 		int s = 0
 		) : base(
 			startPos: startPos,
-			spriteName: "chum_small",
+			spriteName: "pellet_small",
 			dropRate: 30f,
 			healAmount: 50f,
 			cost: 15,
