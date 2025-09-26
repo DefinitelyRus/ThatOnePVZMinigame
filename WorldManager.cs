@@ -58,6 +58,12 @@ public static class WorldManager {
 			Log.Me(() => $"Updating object of type {obj.GetType().Name}...", v, s + 1);
 			obj.Update(v, s + 1);
 			if (obj.ToDelete) ToRemove.Add(obj);
+			if (obj is Coin coin && coin.ToRedeem) {
+				Log.Me(() => $"Redeeming coin worth {coin.Value}...", v, s + 1);
+				StoreManager.AddMoney(coin.Value);
+
+				Log.Me(() => $"Added {coin.Value} to money. New total: {StoreManager.Money}.", v, s + 1);
+			}
 		}
 
 		if (ToAdd.Count > 0) Log.Me(() => $"Adding {ToAdd.Count} new objects...", v, s + 1);
