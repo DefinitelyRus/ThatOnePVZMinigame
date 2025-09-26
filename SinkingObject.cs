@@ -38,7 +38,7 @@ public class SinkingObject : WorldObject {
 		Position.Y += DropRate * Raylib.GetFrameTime();
 
 		// Remove if off screen
-		if (Position.Y > Raylib.GetScreenHeight()) ToDelete = true;
+		if (Position.Y > Raylib.GetScreenHeight()) Despawn(v, s + 1);
 
 		base.Update();
 	}
