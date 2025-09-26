@@ -93,7 +93,7 @@ public class GoldCoin : Coin {
 			startPos: startPos,
 			textureName: "coin_gold",
 			dropRate: 20f,
-			value: 50,
+			value: 100,
 			v: v,
 			s: s + 1
 			)
