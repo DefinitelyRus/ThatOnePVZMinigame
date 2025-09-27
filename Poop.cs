@@ -12,7 +12,7 @@ public class Poop : SinkingObject {
 		) : base (
 			startPos: startPos,
 			textureName: "poop",
-			dropRate: 10f,
+			dropRate: 4f,
 			v: v,
 			s: s + 1
 		) {
