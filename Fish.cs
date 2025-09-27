@@ -110,21 +110,23 @@ public abstract class Fish : WorldObject {
 		}
 
 		// HP Bar
-		Log.Me(() => $"Updating HP bar...", v, s + 1);
-		Raylib.DrawRectangle(
-			posX: (int) Position.X,
-			posY: (int) Position.Y - 10,
-			width: 50,
-			height: 5,
-			color: Color.DarkGray
-		);
-		Raylib.DrawRectangle(
-			posX: (int) Position.X,
-			posY: (int) Position.Y - 10,
-			width: (int) (50 * (Health / MaxHealth)),
-			height: 5,
-			color: Color.Green
-		);
+		if (Health < MaxHealth * 0.75) {
+			Log.Me(() => $"Updating HP bar...", v, s + 1);
+			Raylib.DrawRectangle(
+				posX: (int) Position.X,
+				posY: (int) Position.Y - 10,
+				width: 50,
+				height: 5,
+				color: Color.DarkGray
+			);
+			Raylib.DrawRectangle(
+				posX: (int) Position.X,
+				posY: (int) Position.Y - 10,
+				width: (int) (50 * (Health / MaxHealth)),
+				height: 5,
+				color: Color.Green
+			);
+		}
 	}
 
 
