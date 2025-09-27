@@ -3,6 +3,9 @@
 namespace ThatOnePVZMinigame;
 public static class StoreManager {
 	public static int Money { get; private set; } = 100;
+
+	public static int WinCost => 5000;
+
 	public enum FishType {
 		Cod,
 		Snapper,
@@ -45,6 +48,23 @@ public static class StoreManager {
 		Money -= cost;
 		Log.Me(() => $"Purchased a {nameof(T)} for {cost}. Remaining money: {Money}.", v, s + 1);
 		WorldManager.SpawnChum<T>(startPos, v, s + 1);
+
+		Log.Me(() => "Done!", v, s + 1);
+	}
+
+
+	public static void PurchaseWin(bool v = false, int s = 0) {
+		Log.Me(() => "Attempting to purchase a win...", v, s + 1);
+		if (Money < WinCost) {
+			Log.Me(() => $"Not enough money to purchase a win. Needed: {WinCost}, Available: {Money}.", v, s + 1);
+			return;
+		}
+
+		Money -= WinCost;
+		Log.Me(() => $"Purchased a win for {WinCost}. Remaining money: {Money}.", v, s + 1);
+
+		Master.IsGameOngoing = false;
+		Master.EndText = "You win!";
 
 		Log.Me(() => "Done!", v, s + 1);
 	}

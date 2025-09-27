@@ -56,6 +56,11 @@ public static class WorldManager {
 	}
 
 
+	public static List<T> GetAllObjectsOfType<T>() where T : WorldObject {
+		return [.. WorldObjects.OfType<T>()];
+	}
+
+
 	/// <summary>
 	/// Updates all world objects, removes any that are marked for deletion,
 	/// </summary>

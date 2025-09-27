@@ -15,6 +15,7 @@ internal class InputManager {
 	public static KeyboardKey BuyFishB = KeyboardKey.Two;
 	public static KeyboardKey BuyFishC = KeyboardKey.Three;
 	public static KeyboardKey BuyFishD = KeyboardKey.Four;
+	public static KeyboardKey BuyWin = KeyboardKey.Five;
 
 
 	public static void Update(bool v = false, int s = 0) {
@@ -31,5 +32,7 @@ internal class InputManager {
 		if (Raylib.IsKeyPressed(BuyFishC)) StoreManager.PurchaseFish<JanitorFish>(v, s + 1);
 
 		if (Raylib.IsKeyPressed(BuyFishD)) StoreManager.PurchaseFish<CarnivoreFish>(v, s + 1);
+
+		if (Raylib.IsKeyPressed(BuyWin)) StoreManager.PurchaseWin(v, s + 1);
 	}
 }
