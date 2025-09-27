@@ -2,7 +2,7 @@
 using Raylib_cs;
 namespace ThatOnePVZMinigame;
 
-public class Fish : WorldObject {
+public abstract class Fish : WorldObject {
 
 	#region Callbacks
 
@@ -76,12 +76,12 @@ public class Fish : WorldObject {
 	/// <summary>
 	/// How much health the fish currently has.
 	/// </summary>
-	public float Health { get; set; } = 100f;
+	public float Health { get; set; }
 
 	/// <summary>
 	/// How much health the fish can have at maximum.
 	/// </summary>
-	public float MaxHealth { get; protected set; } = 100f;
+	public float MaxHealth { get; protected set; }
 
 	/// <summary>
 	/// How much the fish's health decreases per second.
@@ -91,7 +91,7 @@ public class Fish : WorldObject {
 	/// <summary>
 	/// How fast the fish floats upwards when dead, in pixels per second.
 	/// </summary>
-	private readonly float FloatRate = 25f;
+	private static readonly float FloatRate = 25f;
 
 
 	/// <summary>
@@ -164,12 +164,12 @@ public class Fish : WorldObject {
 	/// <summary>
 	/// How often the fish drops coins, in seconds.
 	/// </summary>
-	protected static float CoinInterval { get; set; } = 2f;
+	private float CoinInterval { get; set; }
 
 	/// <summary>
 	/// How many seconds have passed since the fish last dropped a coin.
 	/// </summary>
-	public float TimeSinceLastCoin = 0f;
+	public float TimeSinceLastCoin;
 
 	protected Type[] CoinTypes = [typeof(SilverCoin)];
 
@@ -204,9 +204,9 @@ public class Fish : WorldObject {
 
 	#region Pooping
 
-	protected static readonly float PoopInterval = 10f;
+	protected static readonly float PoopInterval = 30f;
+	protected float TimeUntilPoop;
 
-	protected float TimeUntilPoop = 0f;
 
 	protected void Poop(bool v = false, int s = 0) {
 		if (!IsAlive) return;
@@ -230,7 +230,6 @@ public class Fish : WorldObject {
 	/// <summary>
 	/// How fast the fish swims, in pixels per second.
 	/// </summary>
-	protected float Speed = 20f;
 
 	/// <summary>
 	/// The current state the fish is in.
@@ -252,27 +251,26 @@ public class Fish : WorldObject {
 	/// <summary>
 	/// How long the fish will idle for, in seconds.
 	/// </summary>
-	protected float IdleTimer = 0f;
+	protected float IdleTimer;
 
 	/// <summary>
 	/// Where the fish is currently swimming towards.
 	/// </summary>
-	protected Vector2 Destination = new(0, 0);
 
 	/// <summary>
 	/// A target object that overrides the fish's random swimming behavior.
 	/// </summary>
-	protected WorldObject? Target = null;
+	protected WorldObject? Target;
 
 	/// <summary>
 	/// The type of target object the fish prefers to chase.
 	/// </summary>
-	protected Type PreferredTarget = typeof(Chum);
+	protected Type PreferredTarget;
 
 	/// <summary>
 	/// How far the fish needs to be from its destination to be considered "arrived", in pixels.
 	/// </summary>
-	protected float ArrivalThreshold = 10f;
+	protected readonly float ArrivalThreshold = 15f;
 
 
 	/// <summary>
