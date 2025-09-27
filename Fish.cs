@@ -10,7 +10,6 @@ public class Fish : WorldObject {
 		string textureName,
 		float maxHealth,
 		float attrition,
-		int cost,
 		float coinInterval,
 		Type[] coinTypes,
 		float speed,
@@ -33,7 +32,6 @@ public class Fish : WorldObject {
 		Health = MaxHealth;
 		Attrition = attrition;
 
-		Cost = cost;
 		CoinInterval = coinInterval;
 		CoinTypes = coinTypes;
 
@@ -157,6 +155,7 @@ public class Fish : WorldObject {
 
 	#region Moneys
 
+	[Obsolete("This property is never used. Use the Cost property in the specific fish implementations instead.", true)]
 	/// <summary>
 	/// How much the fish costs to buy and spawn.
 	/// </summary>
@@ -578,7 +577,6 @@ public class Cod : Fish {
 			textureName: "fish_cod",
 			maxHealth: 90f,
 			attrition: 3f,
-			cost: 50,
 			coinInterval: 8f,
 			coinTypes: [typeof(SilverCoin)],
 			speed: 45f,
@@ -589,6 +587,8 @@ public class Cod : Fish {
 		{
 		Log.Me(() => $"Created Cod.", v, s + 1);
 	}
+
+	public new static int Cost { get; protected set; } = 150;
 }
 
 
@@ -601,7 +601,6 @@ public class Bass : Fish {
 			textureName: "fish_bass",
 			maxHealth: 480f,
 			attrition: 4f,
-			cost: 250,
 			coinInterval: 12f,
 			coinTypes: [typeof(SilverCoin), typeof(SilverCoin), typeof(SilverCoin), typeof(GoldCoin)],
 			speed: 60f,
@@ -612,6 +611,8 @@ public class Bass : Fish {
 		{
 		Log.Me(() => $"Created Bass.", v, s + 1);
 	}
+
+	public new static int Cost { get; protected set; } = 350;
 }
 
 
@@ -625,7 +626,6 @@ public class JanitorFish : Fish {
 			textureName: "fish_tai",
 			maxHealth: 120f,
 			attrition: 1f,
-			cost: 800,
 			coinInterval: 15f,
 			coinTypes: [typeof(GoldCoin)],
 			speed: 50f,
@@ -635,6 +635,8 @@ public class JanitorFish : Fish {
 			) {
 		Log.Me(() => $"Created Janitor Fish.", v, s + 1);
 	}
+
+	public new static int Cost { get; protected set; } = 1000;
 }
 
 
@@ -648,7 +650,6 @@ public class CarnivoreFish : Fish {
 			textureName: "fish_yellowfin",
 			maxHealth: 1200f,
 			attrition: 20f,
-			cost: 2500,
 			coinInterval: 5f,
 			coinTypes: [typeof(GoldCoin)],
 			speed: 80f,
@@ -659,6 +660,8 @@ public class CarnivoreFish : Fish {
 		{
 		Log.Me(() => $"Created Predator Fish.", v, s + 1);
 	}
+
+	public new static int Cost { get; protected set; } = 2500;
 }
 
 #endregion

@@ -8,19 +8,17 @@ public abstract class Chum : SinkingObject
 	/// </summary>
 	public float HealAmount = 0f;
 
+	[Obsolete("This property is never used. Use the Cost property of specific chum implementations instead.", true)]
 	/// <summary>
 	/// How much the chum costs to buy and spawn.
 	/// </summary>
 	public static int Cost { get; protected set; } = 0;
 	
-
-
 	public Chum(
 		Vector2 startPos,
 		string spriteName,
 		float dropRate,
 		float healAmount,
-		int cost = 0,
 		bool v = false,
 		int s = 0
 		) : base(
@@ -32,7 +30,6 @@ public abstract class Chum : SinkingObject
 			) {
 		Log.Me(() => $"Creating base chum...", v, s + 1);
 		HealAmount = healAmount;
-		Cost = cost;
 
 		Log.Me(() => "Done!", v, s + 1);
 	}
@@ -53,12 +50,13 @@ public class SmallChum : Chum
 			spriteName: "pellet_small",
 			dropRate: 30f,
 			healAmount: 50f,
-			cost: 15,
 			v: v,
 			s: s + 1
 			) {
 		Log.Me(() => $"Creating small chum...", v, s + 1);
 	}
+
+	public new static int Cost { get; protected set; } = 15;
 }
 
 
@@ -71,15 +69,16 @@ public class LargeChum : Chum
 		int s = 0
 		) : base(
 			startPos: startPos,
-			spriteName: "chum_large",
+			spriteName: "pellet_big",
 			dropRate: 20f,
 			healAmount: 250f,
-			cost: 50,
 			v: v,
 			s: s + 1
 			) {
 		Log.Me(() => $"Creating large chum...", v, s + 1);
 	}
+
+	public new static int Cost { get; protected set; } = 50;
 }
 
 #endregion
