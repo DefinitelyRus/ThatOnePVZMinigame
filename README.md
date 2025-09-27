@@ -50,3 +50,16 @@ They also produce coins periodically whether or not they eat.
 - Bass produces silver coins 75% of the time and gold coins 25% of the time.
 - Janitorfish slowly produces only gold coins.
 - Carnivorefish quickly produces only gold coins.
+
+
+
+# Copyright
+This game is showcase--it does not serve as a full release.
+
+I do not own the concept of this game nor any of the assets used in it.
+I only own the source code that runs this game.
+
+Please contact me via the contact info in [my profile](https://github.com/DefinitelyRus) if:
+- You are the owner of any of the assets used in this game and you
+want it removed from this project.
+- You want to use my code in your project.
