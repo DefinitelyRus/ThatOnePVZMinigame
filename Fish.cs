@@ -246,6 +246,7 @@ public abstract class Fish : WorldObject {
 	/// <summary>
 	/// How fast the fish swims, in pixels per second.
 	/// </summary>
+	protected float Speed;
 
 	/// <summary>
 	/// The current state the fish is in.
@@ -272,6 +273,7 @@ public abstract class Fish : WorldObject {
 	/// <summary>
 	/// Where the fish is currently swimming towards.
 	/// </summary>
+	protected Vector2 Destination;
 
 	/// <summary>
 	/// A target object that overrides the fish's random swimming behavior.
