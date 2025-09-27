@@ -38,11 +38,6 @@ public abstract class Fish : WorldObject {
 		Speed = speed;
 		PreferredTarget = preference;
 
-		//Destination = new Vector2(
-		//	Raylib.GetRandomValue(Sprite.Width, Raylib.GetScreenWidth() - Sprite.Width * 2),
-		//	Raylib.GetRandomValue(Sprite.Height, Raylib.GetScreenHeight() - Sprite.Height * 2)
-		//);
-
 		Log.Me(() => "Subscribing to OnAnnounceExistence event...", v, s + 1);
 		OnAnnounceExistence += NotifySpawn;
 
@@ -171,8 +166,17 @@ public abstract class Fish : WorldObject {
 	/// </summary>
 	public float TimeSinceLastCoin;
 
+	/// <summary>
+	/// The types of coins the fish can drop.
+	/// </summary>
 	protected Type[] CoinTypes = [typeof(SilverCoin)];
 
+
+	/// <summary>
+	/// Periodically generates income by dropping coins at set intervals.
+	/// </summary>
+	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
+	/// <param name="s">The stack layer this method belongs in.</param>
 	protected void GenerateIncome(bool v = false, int s = 0) {
 		if (!IsAlive) return;
 		TimeSinceLastCoin += Raylib.GetFrameTime();
@@ -204,10 +208,22 @@ public abstract class Fish : WorldObject {
 
 	#region Pooping
 
+	/// <summary>
+	/// How many seconds after eating before the fish poops.
+	/// </summary>
 	protected static readonly float PoopInterval = 30f;
+
+	/// <summary>
+	/// How many seconds until the fish poops. Set to PoopInterval after eating.
+	/// </summary>
 	protected float TimeUntilPoop;
 
 
+	/// <summary>
+	/// Fish poops after a set interval of time after eating.
+	/// </summary>
+	/// <param name="v">Whether to print logs from this method and any methods called within it.</param>
+	/// <param name="s">The stack layer this method belongs in.</param>
 	protected void Poop(bool v = false, int s = 0) {
 		if (!IsAlive) return;
 		if (TimeUntilPoop <= 0f) return;
